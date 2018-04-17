@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <!--
@@ -46,23 +46,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <div class="box-body">
                     <table class="table tree">
-                        <thead>
-                            <tr class="bg-blue-gradient">
-                               <td><strong>角色名称：</strong>超级管理员</td>
-                            </tr>
-                            <tr>
-                                <td><strong>权限：</strong>权限增加、权限删除、权限修改</td>
-
-                            </tr>
-                            <tr class="bg-blue-gradient">
-                                <td><strong>角色名称：</strong>管理员</td>
-                            </tr>
-                            <tr>
-                                <td><strong>权限：</strong>权限增加</td>
-                            </tr>
-                        </thead>
                         <tbody>
+                        <c:forEach items="${rolesList}" var="roles">
+                            <tr class="bg-blue">
+                                <td>
+                                    角色名称：<strong>${roles.rolesName}</strong>
+                                    <span class="pull-right">
+                                            <a style="color: #fff;" href="/manage/roles/${roles.id}/edit"><i class="fa fa-pencil"></i></a>
+                                            <a style="color: #fff;" class="delLink" rel="${roles.id}" href="#"><i class="fa fa-trash"></i></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <c:forEach items="${rolesPermissionKeyList}" var="rolesPermissionKey">
+                                        <C:if text="${roles.id == rolesPermissionKey.rolesId}">
+                                           <%-- ${rolesPermissionKey.permissionId}--%>
+                                        </C:if>
+                                    </c:forEach>
+                                </td>
 
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

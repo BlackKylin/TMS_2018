@@ -2,6 +2,7 @@ package com.wyx.tms.controller;
 
 import com.wyx.tms.entity.Permission;
 import com.wyx.tms.entity.Roles;
+import com.wyx.tms.entity.RolesPermissionKey;
 import com.wyx.tms.service.PermissionService;
 import com.wyx.tms.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,23 @@ public class RolesController {
     private PermissionService permissionService;
 
 
+
     @GetMapping("/")
-    public String home(){
+    public String home(Model model){
+
+        List<Roles> rolesList = rolesService.findByRolesAll();
+
+        List<Permission> permissionList = rolesService.findByPermission();
+
+
+        List<RolesPermissionKey> rolesPermissionKeyList = rolesService.findByRolesPermission();
+
+        model.addAttribute("rolesPermissionKeyList",rolesPermissionKeyList);
+
+        model.addAttribute("permissionList",permissionList);
+
+        model.addAttribute("rolesList",rolesList);
+
         return "manage/roles/home";
     }
 
@@ -50,7 +66,7 @@ public class RolesController {
 
         redirectAttributes.addFlashAttribute("message","角色添加成功");
 
-        return "/manage/roles/";
+        return "redirect:/manage/roles/";
 
     }
 

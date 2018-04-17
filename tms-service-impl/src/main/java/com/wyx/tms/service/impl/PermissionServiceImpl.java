@@ -69,6 +69,55 @@ public class PermissionServiceImpl implements PermissionService {
         return list;
     }
 
+    /**
+     * 根据ID 查询Permission
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Permission findByPermissionAndId(Integer id) {
+        Permission permission = permissionMapper.selectByPrimaryKey(id);
+        return permission;
+    }
+
+    /**
+     * 根据ID查询该Id权限的所有子权限
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Permission> findByIdAndPermissions(Integer id) {
+
+        PermissionExample permissionExample = new PermissionExample();
+        List<Permission> permissionList = permissionMapper.selectByExample(permissionExample);
+        List<Permission> list = new ArrayList<>();
+        treeList(permissionList,list,id);
+
+        return list;
+    }
+
+    /**
+     * 修改权限
+     *
+     * @param permission
+     */
+    @Override
+    public void updatePermission(Permission permission) {
+        permissionMapper.updateByPrimaryKeySelective(permission);
+    }
+
+    /**
+     * 删除权限
+     *
+     * @param id
+     */
+    @Override
+    public void deletePermission(Integer id) {
+        permissionMapper.deleteByPrimaryKey(id);
+    }
+
     private void treeList(List<Permission> permissionList, List<Permission> list, int parentId) {
         List<Permission> tempList = Lists.newArrayList(Collections2.filter(permissionList, permission -> permission.getParentId().equals(parentId)));
         for(Permission permission :tempList){

@@ -40,7 +40,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <div class="box">
                 <div class="box-header">
+
                     <h3 class="box-title">权限列表</h3>
+                    <c:if test="${not empty message}">
+                        <p class="login-box-msg text-danger">${message}</p>
+                    </c:if>
                     <a href="/manage/permission/add" class="btn btn-success pull-right fa fa-plus" >添加权限</a>
                 </div>
                 <div class="box-body">
@@ -65,8 +69,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <th>${permission.url}</th>
                                             <td>${permission.permissionType}</td>
                                             <th>
-                                                <a href="">修改</a>
-                                                <a href="">删除</a>
+                                                <a href="/manage/permission/${permission.id}/update">修改</a>
+                                                <a href="/manage/permission/${permission.id}/delete">删除</a>
                                             </th>
                                         </tr>
                                     </c:when>
@@ -77,8 +81,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <th>${permission.url}</th>
                                             <td>${permission.permissionType}</td>
                                             <th>
-                                                <a href="">修改</a>
-                                                <a href="">删除</a>
+                                                <a href="/manage/permission/${permission.id}/update">修改</a>
+                                                <a href="/manage/permission/${permission.id}/delete">删除</a>
                                             </th>
                                         </tr>
                                     </c:otherwise>
@@ -94,6 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <%@include file="../../include/js.jsp"%>
+
 <script src="/static/plugins/treegrid/js/jquery.treegrid.min.js"></script>
 <script src="/static/plugins/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 

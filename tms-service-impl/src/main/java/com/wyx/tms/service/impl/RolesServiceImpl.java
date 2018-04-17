@@ -1,7 +1,7 @@
 package com.wyx.tms.service.impl;
 
-import com.wyx.tms.entity.Roles;
-import com.wyx.tms.entity.RolesPermissionKey;
+import com.wyx.tms.entity.*;
+import com.wyx.tms.mapper.PermissionMapper;
 import com.wyx.tms.mapper.RolesMapper;
 import com.wyx.tms.mapper.RolesPermissionMapper;
 import com.wyx.tms.service.RolesService;
@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 角色的业务实现类
@@ -26,6 +28,9 @@ public class RolesServiceImpl implements RolesService {
     @Autowired
     private RolesPermissionMapper rolesPermissionMapper;
 
+    @Autowired
+    private PermissionMapper permissionMapper;
+
     /**
      * 添加角色
      *
@@ -34,6 +39,7 @@ public class RolesServiceImpl implements RolesService {
      * @return
      */
     @Override
+    @Transactional(value="dataSourceTransactionManager")
     public void addRoles(Roles roles, Integer[] permissionId) {
 
         roles.setCreateTime(new Date());
@@ -52,5 +58,49 @@ public class RolesServiceImpl implements RolesService {
         }
 
         logger.info("添加了{}角色",roles);
+    }
+
+    /**
+     * 查询全部角色
+     *
+     * @return
+     */
+    @Override
+    public List<Roles> findByRolesAll() {
+
+        RolesExample rolesExample = new RolesExample();
+        List<Roles> rolesList = rolesMapper.selectByExample(rolesExample);
+
+        return rolesList;
+    }
+
+    /**
+     * 查询全部权限
+     *
+     * @return
+     */
+    @Override
+    public List<Permission> findByPermission() {
+
+        PermissionExample permissionExample = new PermissionExample();
+
+        List<Permission> permissionList = permissionMapper.selectByExample(permissionExample);
+
+        return permissionList;
+    }
+
+    /**
+     * 查询角色拥有的权限
+     *
+     * @return
+     */
+    @Override
+    public List<RolesPermissionKey> findByRolesPermission() {
+
+        RolesPermissionExample rolesPermissionExample = new RolesPermissionExample();
+
+        List<RolesPermissionKey> rolesPermissionKeyList = rolesPermissionMapper.selectByExample(rolesPermissionExample);
+
+        return rolesPermissionKeyList;
     }
 }

@@ -41,7 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="col-md-7">
                 <form method="post" id="saveFrom">
                     <legend>新增权限</legend>
-                    <a href="/permission/add" class="btn btn-success  pull-right  fa fa-plus" >返回</a>
+                    <a href="/manage/permission/add" class="btn btn-success  pull-right  fa fa-plus" >返回</a>
 
                     <div class="form-group">
                         <label>权限名称</label>

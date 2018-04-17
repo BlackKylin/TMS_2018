@@ -29,4 +29,29 @@ public interface PermissionService {
      */
     List<Permission> findPermissionAll();
 
+    /**
+     * 根据ID 查询Permission
+     * @param id
+     * @return
+     */
+    Permission findByPermissionAndId(Integer id);
+
+    /**
+     * 根据ID查询该Id权限的所有子权限
+     * @param id
+     * @return
+     */
+    List<Permission> findByIdAndPermissions(Integer id);
+
+    /**
+     * 修改权限
+     * @param permission
+     */
+    void updatePermission(Permission permission);
+
+    /**
+     * 删除权限
+     * @param id
+     */
+    void deletePermission(Integer id);
 }

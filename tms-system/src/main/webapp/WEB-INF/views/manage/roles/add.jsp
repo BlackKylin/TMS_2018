@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <div class="col-md-7">
                 <form method="post" id="saveFrom">
-                    <legend>新增角色 <a href="/roles/add" class="btn btn-success  pull-right btn-group-sm" >返回</a></legend>
+                    <legend>新增角色 <a href="/manage/roles/" class="btn btn-success  pull-right btn-group-sm" >返回</a></legend>
 
                     <div class="form-group">
                         <label>角色名称</label>
@@ -58,6 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <label>角色代号</label>
                         <input type="text" class="form-control" name="rolesCode">
                     </div>
+
                     <table class="table tree">
                         <thead>
                         <tr>

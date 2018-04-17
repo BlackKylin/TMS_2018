@@ -31,6 +31,11 @@ public class Roles implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 角色拥有的权限
+     */
+    private Integer[] permissionsId;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -71,5 +76,24 @@ public class Roles implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer[] getPermissionsId() {
+        return permissionsId;
+    }
+
+    public void setPermissionsId(Integer[] permissionsId) {
+        this.permissionsId = permissionsId;
+    }
+
+    @Override
+    public String toString() {
+        return "Roles{" +
+                "id=" + id +
+                ", rolesName='" + rolesName + '\'' +
+                ", rolesCode='" + rolesCode + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

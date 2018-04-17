@@ -15,6 +15,7 @@ com\wyx\tms\entity\AccountRolesExample$GeneratedCriteria.class
 com\wyx\tms\entity\AccountRolesExample$Criteria.class
 com\wyx\tms\entity\Account.class
 com\wyx\tms\entity\AccountLoginLoggerExample$Criterion.class
+com\wyx\tms\entity\NotFandException.class
 com\wyx\tms\entity\Permission.class
 com\wyx\tms\entity\PermissionExample$Criteria.class
 com\wyx\tms\entity\AccountLoginLoggerExample$Criteria.class
