@@ -1,18 +1,19 @@
 package com.wyx.tms.service.impl;
 
 import com.wyx.tms.entity.*;
-import com.wyx.tms.exception.ServiceException;
 import com.wyx.tms.mapper.AccountLoginLoggerMapper;
 import com.wyx.tms.mapper.AccountMapper;
+import com.wyx.tms.mapper.AccountRolesMapper;
 import com.wyx.tms.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * 登录的业务实现类
@@ -28,56 +29,8 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountLoginLoggerMapper accountLoginLoggerMapper;
 
-
-    /**
-     * 系统登录方法
-     *
-     * @param accountNumber
-     * @param accountPassword
-     * @param requestId
-     * @return
-     */
-    @Override
-    public Account login(String accountNumber, String accountPassword, String requestId) throws ServiceException {
-
-        //根据用户账户查找用户
-        AccountExample accountExample = new AccountExample();
-        accountExample.createCriteria().andAccountNumberEqualTo(accountNumber);
-
-        List<Account> accountList = accountMapper.selectByExample(accountExample);
-        Account account= null;
-        if(accountList != null && !accountList.isEmpty()){
-            account = accountList.get(0);
-        } else {
-            throw new ServiceException("账户或密码错误");
-        }
-
-        //匹配密码
-        if(account.getAccountPassword().equals(accountPassword)){
-
-            //判断账户的状态
-            if(account.getAccountState().equals(account.STATE_OFF)){
-                throw new ServiceException("该账户已被禁用");
-            }else if (account.getAccountState().equals(account.STATE_LOCK)){
-                throw new ServiceException("该账户被锁定");
-            }else {
-
-                //添加登录日志
-                AccountLoginLogger accountLoginLogger = new AccountLoginLogger();
-                accountLoginLogger.setAccountId(account.getId());
-                accountLoginLogger.setLogName(account.getAccountName());
-                accountLoginLogger.setRequestId(requestId);
-                accountLoginLogger.setLogTime(new Date());
-
-                accountLoginLoggerMapper.insert(accountLoginLogger);
-
-                logger.info("{} 登录系统",account);
-                return account;
-            }
-        } else {
-            throw new ServiceException("账户或密码错误");
-        }
-    }
+    @Autowired
+    private AccountRolesMapper accountRolesMapper;
 
     /**
      * 查询所有的账户
@@ -90,5 +43,93 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.selectByExample(accountExample);
     }
 
+
+    /**
+     * 添加账户
+     * @param account
+     * @param rolesIds
+     */
+    @Override
+    @Transactional(value = "dataSourceTransactionManager")
+    public void saveAccount(Account account, Integer[] rolesIds) {
+
+        //设置账户默认密码为：000000
+        account.setAccountPassword("000000");
+        //设置账户的账户状态默认为：正常
+        account.setAccountState(account.STATE_NORMAL);
+        //设置账户的创建时间和修改时间
+        account.setCreateTime(new Date());
+        account.setUpdateTime(new Date());
+        accountMapper.insertSelective(account);
+
+        //添加角色和账户的关系
+        for(Integer rolesId : rolesIds){
+
+            AccountRolesKey accountRolesKey = new AccountRolesKey();
+
+            accountRolesKey.setAccountId(account.getId());
+            accountRolesKey.setRolesId(rolesId);
+            accountRolesMapper.insert(accountRolesKey);
+
+        }
+        logger.info("添加了{}账户",account);
+    }
+
+    /**
+     * 根据ID查找用户
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Account findByIdAndAccount(Integer id) {
+
+        Account account = accountMapper.selectByPrimaryKey(id);
+
+        return account;
+    }
+
+    /**
+     * 根据AccountId查找拥有的角色
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Roles> findByAccountIdAndRoles(Integer id) {
+
+        return null;
+    }
+
+    /**
+     * 根据电话号码查询用户
+     *
+     * @param accountNumber
+     * @return
+     */
+    @Override
+    public Account findByAccountNumber(String accountNumber) {
+
+        AccountExample accountExample = new AccountExample();
+
+        accountExample.createCriteria().andAccountNumberEqualTo(accountNumber);
+
+        List<Account> accountList = accountMapper.selectByExample(accountExample);
+
+        if(accountList != null && !accountList.isEmpty()){
+            return accountList.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 新增Account的登录日志
+     *
+     * @param accountLoginLogger
+     */
+    @Override
+    public void saveAccountLogger(AccountLoginLogger accountLoginLogger) {
+        accountLoginLoggerMapper.insertSelective(accountLoginLogger);
+    }
 
 }

@@ -2,6 +2,8 @@ package com.wyx.tms.service;
 
 
 import com.wyx.tms.entity.Account;
+import com.wyx.tms.entity.AccountLoginLogger;
+import com.wyx.tms.entity.Roles;
 import com.wyx.tms.exception.ServiceException;
 
 import java.util.List;
@@ -12,21 +14,43 @@ import java.util.List;
 public interface AccountService {
 
     /**
-     * 系统登录方法
-     * @param accountNumber
-     * @param accountPassword
-     * @param requestId
-     * @return
-     */
-    Account login(String accountNumber, String accountPassword, String requestId) throws ServiceException;
-
-    /**
      * 查询所有的账户
      */
     List<Account> selectByAccountAll();
 
 
+    /**
+     * 添加账户
+     * @param account
+     * @param rolesIds
+     */
+    void saveAccount(Account account, Integer[] rolesIds);
 
 
+    /**
+     * 根据ID查找用户
+     * @param id
+     * @return
+     */
+    Account findByIdAndAccount(Integer id);
 
+    /**
+     * 根据AccountId查找拥有的角色
+     * @param id
+     * @return
+     */
+    List<Roles> findByAccountIdAndRoles(Integer id);
+
+    /**
+     * 根据电话号码查询用户
+     * @param accountNumber
+     * @return
+     */
+    Account findByAccountNumber(String accountNumber);
+
+    /**
+     * 新增Account的登录日志
+     * @param accountLoginLogger
+     */
+    void saveAccountLogger(AccountLoginLogger accountLoginLogger);
 }

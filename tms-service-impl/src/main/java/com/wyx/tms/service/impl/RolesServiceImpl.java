@@ -46,8 +46,6 @@ public class RolesServiceImpl implements RolesService {
         roles.setUpdateTime(new Date());
         rolesMapper.insertSelective(roles);
 
-        System.out.println(roles.getId());
-
         //添加角色和权限的关系
         for(Integer id : permissionId) {
             RolesPermissionKey rolesPermissionKey = new RolesPermissionKey();

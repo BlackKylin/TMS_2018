@@ -1,4 +1,5 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <!--
@@ -32,53 +33,83 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <%--右边栏--%>
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>账户管理</h1>
-        </section>
-        <!-- Main content -->
-        <section class="content container-fluid">
-            <div class="container">
-                <h3>商品列表</h3>
-                <c:if test="${not empty message}">
-                    <div class="alert alert-success">${message}</div>
-                </c:if>
-                <a href="/product/add" class="btn btn-primary pull-right">添加商品</a>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>商品名称</th>
-                        <th>价格</th>
-                        <th>市场价</th>
-                        <th>产地</th>
-                        <th>所属分类</th>
-                        <th>#</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${pageInfo.list}" var="product">
-                        <tr>
-                            <td><a href="/product/${product.id}">${product.productName}</a></td>
-                            <td>${product.price}</td>
-                            <td>${product.marketPrice}</td>
-                            <td>${product.place}</td>
-                            <td>${product.productType.typeName}</td>
-                            <td>
-                                <a href="/product/${product.id}/update">编辑</a>
-                                <a href="javascript:;" class="delLink" rel="${product.id}">删除</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-                <ul id="pagination-demo" class="pagination pull-right"></ul>
-            </div>
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    账号管理
+                </h1>
+            </section>
 
-        </section>
-    </div>
-
-
+            <!-- Main content -->
+            <section class="content">
+                <div class="box no-border">
+                    <div class="box-body">
+                        <form class="form-inline">
+                            <input type="text" name="nameMobile" placeholder="账号 或 手机号码" class="form-control" value="${param.nameMobile}">
+                            <select name="rolesId" class="form-control">
+                                <option value="">所有角色</option>
+                                <c:forEach items="${rolesList}" var="roles">
+                                    <option value="${roles.id}" ${param.rolesId == roles.id ? 'selected' : ''}>${roles.rolesName}</option>
+                                </c:forEach>
+                            </select>
+                            <button class="btn btn-default">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                        <div class="box-tools">
+              <%--              <shiro:hasPermission name="account:add">--%>
+                                <a href="/account/add" class="btn btn-success btn-sm">
+                                    <i class="fa fa-plus"></i> 新增账号
+                                </a>
+                           <%-- </shiro:hasPermission>--%>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>账号</th>
+                                <th>手机号码</th>
+                                <th>角色</th>
+                                <th>状态</th>
+                                <th>创建时间</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${accountList}" var="account">
+                                <tr>
+                                    <td>${account.accountName}</td>
+                                    <td>${account.accountNumber}</td>
+                                    <td>
+                                        <%--<c:forEach items="${account.rolesList}" var="roles">
+                                            ${roles.rolesName}
+                                        </c:forEach>--%>
+                                    </td>
+                                    <td>
+                                            ${account.accountState}
+                                    </td>
+                                    <td>
+                                        <fmt:formatDate value="${account.createTime}"/>
+                                    </td>
+                                    <td>
+                                        <%--<shiro:hasPermission name="account:edit">--%>
+                                            <a href="/account/${account.id}/update"><i class="fa fa-edit"></i></a>
+                                        <%--</shiro:hasPermission>--%>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
  <%@include file="../include/js.jsp"%>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--顶栏--%>
 <!-- Main Header -->
@@ -123,7 +124,7 @@
                         <!-- The user image in the navbar-->
                         <img src="/static/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs"><shiro:principal property="accountName"/></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
@@ -131,8 +132,7 @@
                             <img src="/static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                 <shiro:principal property="accountName"/>
                             </p>
                         </li>
                         <!-- Menu Footer-->

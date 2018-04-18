@@ -3,6 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="rememberCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <property name="maxAge" value="604800"/>
+        <property name="httpOnly" value="true"/>
+        <property name="name" value="rememberMe"/>
+    </bean>
+    <bean id="cookieRememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="rememberCookie"/>
+    </bean>
+   
+   
     <!--1. 配置SecurityManager-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="cacheManager" ref="cacheManager"/>
@@ -28,9 +38,10 @@
     </bean>
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+
         <property name="securityManager" ref="securityManager"/>
         <!--配置登录的URL-->
-        <property name="loginUrl" value=" /"/>
+        <property name="loginUrl" value="/"/>
         <!--登录成功后的URL-->
         <property name="successUrl" value="/home"/>
         <!--访问没有权限的资源跳转的URL-->
@@ -39,6 +50,7 @@
             <value>
                 /favicon.ico = anon
                 /static/** = anon
+                /logout = logout
                 /** = authc
             </value>
         </property>

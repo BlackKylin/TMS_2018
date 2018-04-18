@@ -9,11 +9,11 @@ import java.util.Date;
 public class Account implements Serializable {
 
 
-    public final String STATE_NORMAL = "正常";
+    public static final String STATE_NORMAL = "正常";
 
-    public final String STATE_OFF = "禁用";
+    public static final String STATE_OFF = "禁用";
 
-    public final String STATE_LOCK = "锁定";
+    public static final String STATE_LOCK = "锁定";
     private Integer id;
 
     /**
