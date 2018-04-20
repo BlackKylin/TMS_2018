@@ -3,6 +3,7 @@ package com.wyx.tms.controller;
 import com.wyx.tms.entity.NotFandException;
 import com.wyx.tms.entity.Permission;
 import com.wyx.tms.service.PermissionService;
+import com.wyx.tms.shiro.CustomerFilterChainDefinitions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,9 @@ public class permissionController {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private CustomerFilterChainDefinitions customerFilterChainDefinitions;
 
     /**
      * 调转到首页
@@ -61,6 +65,9 @@ public class permissionController {
 
         permissionService .savePermission(permission);
 
+        //刷新URL的权限
+        customerFilterChainDefinitions.update();
+
         redirectAttributes.addFlashAttribute("message","添加权限成功");
 
         return "redirect:/manage/permission/";
@@ -97,6 +104,7 @@ public class permissionController {
 
         permissionService.updatePermission(permission);
 
+        customerFilterChainDefinitions.update();
         redirectAttributes.addFlashAttribute("message","修改成功");
 
         return "redirect:/manage/permission/";
@@ -118,6 +126,7 @@ public class permissionController {
         if(permissionList.size() == 0){
 
             permissionService.deletePermission(id);
+            customerFilterChainDefinitions.update();
             redirectAttributes.addFlashAttribute("message","删除成功");
             return "redirect:/manage/permission/";
         } else {

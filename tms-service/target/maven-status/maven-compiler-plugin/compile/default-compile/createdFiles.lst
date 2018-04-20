@@ -1,3 +1,5 @@
-com\wyx\tms\service\AccountService.class
+com\wyx\tms\service\PosService.class
 com\wyx\tms\service\PermissionService.class
 com\wyx\tms\service\RolesService.class
+com\wyx\tms\service\AccountService.class
+com\wyx\tms\service\AccountPosService.class

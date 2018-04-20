@@ -1,5 +1,8 @@
+com\wyx\tms\entity\Pos.class
 com\wyx\tms\entity\PermissionExample$Criterion.class
 com\wyx\tms\entity\AccountLoginLoggerExample$GeneratedCriteria.class
+com\wyx\tms\entity\PosExample$Criteria.class
+com\wyx\tms\entity\AccountPosExample.class
 com\wyx\tms\entity\PermissionExample$GeneratedCriteria.class
 com\wyx\tms\entity\AccountRolesExample$Criterion.class
 com\wyx\tms\entity\AccountExample.class
@@ -12,9 +15,11 @@ com\wyx\tms\entity\AccountExample$GeneratedCriteria.class
 com\wyx\tms\entity\AccountRolesKey.class
 com\wyx\tms\entity\AccountLoginLoggerExample.class
 com\wyx\tms\entity\AccountRolesExample$GeneratedCriteria.class
+com\wyx\tms\entity\PosExample$Criterion.class
 com\wyx\tms\entity\AccountRolesExample$Criteria.class
 com\wyx\tms\entity\Account.class
 com\wyx\tms\entity\AccountLoginLoggerExample$Criterion.class
+com\wyx\tms\entity\AccountPosExample$GeneratedCriteria.class
 com\wyx\tms\entity\NotFandException.class
 com\wyx\tms\entity\Permission.class
 com\wyx\tms\entity\PermissionExample$Criteria.class
@@ -23,10 +28,15 @@ com\wyx\tms\entity\RolesExample$Criteria.class
 com\wyx\tms\entity\AccountLoginLogger.class
 com\wyx\tms\entity\AccountExample$Criteria.class
 com\wyx\tms\entity\AccountRolesExample.class
+com\wyx\tms\entity\AccountPos.class
+com\wyx\tms\entity\PosExample$GeneratedCriteria.class
 com\wyx\tms\entity\RolesPermissionExample$Criterion.class
 com\wyx\tms\entity\RolesExample$Criterion.class
+com\wyx\tms\entity\PosExample.class
 com\wyx\tms\entity\PermissionExample.class
 com\wyx\tms\entity\RolesPermissionExample.class
+com\wyx\tms\entity\AccountPosExample$Criteria.class
+com\wyx\tms\entity\AccountPosExample$Criterion.class
 com\wyx\tms\entity\RolesPermissionExample$GeneratedCriteria.class
 com\wyx\tms\entity\AccountExample$Criterion.class
 com\wyx\tms\entity\RolesPermissionExample$Criteria.class

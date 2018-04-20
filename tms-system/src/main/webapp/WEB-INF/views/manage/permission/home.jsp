@@ -45,7 +45,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <c:if test="${not empty message}">
                         <p class="login-box-msg text-danger">${message}</p>
                     </c:if>
-                    <a href="/manage/permission/add" class="btn btn-success pull-right fa fa-plus" >添加权限</a>
+                   <%-- <shiro:hasPermission name="permission:add">--%>
+                        <a href="/manage/permission/add" class="btn btn-success pull-right fa fa-plus" >添加权限</a>
+                    <%--</shiro:hasPermission>--%>
                 </div>
                 <div class="box-body">
 
@@ -69,8 +71,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <th>${permission.url}</th>
                                             <td>${permission.permissionType}</td>
                                             <th>
+                                               <%-- <shiro:hasPermission name="permission:update">--%>
                                                 <a href="/manage/permission/${permission.id}/update">修改</a>
+                                               <%-- </shiro:hasPermission>--%>
+                                              <%--  <shiro:hasPermission name="permission:delete">--%>
                                                 <a href="/manage/permission/${permission.id}/delete">删除</a>
+                                              <%--  </shiro:hasPermission>--%>
                                             </th>
                                         </tr>
                                     </c:when>
@@ -81,8 +87,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <th>${permission.url}</th>
                                             <td>${permission.permissionType}</td>
                                             <th>
+                                                <%--<shiro:hasPermission name="permission:update">--%>
                                                 <a href="/manage/permission/${permission.id}/update">修改</a>
+                                                <%--</shiro:hasPermission>--%>
+                                               <%-- <shiro:hasPermission name="permission:delete">--%>
                                                 <a href="/manage/permission/${permission.id}/delete">删除</a>
+                                               <%-- </shiro:hasPermission>--%>
                                             </th>
                                         </tr>
                                     </c:otherwise>

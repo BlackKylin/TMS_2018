@@ -1,5 +1,9 @@
 D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\controller\RolesController.java
+D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\error\NotFandException.java
+D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\controller\PosController.java
+D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\error\ControllerAdviceHandler.java
 D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\controller\AccountController.java
 D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\shiro\ShiroRealm.java
 D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\controller\HomeController.java
 D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\controller\permissionController.java
+D:\idea\tms-2018\tms-system\src\main\java\com\wyx\tms\shiro\CustomerFilterChainDefinitions.java

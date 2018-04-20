@@ -164,6 +164,31 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
+  <select id="fandByIdAccount" resultMap="accountWithRolesMap">
+      SELECT
+          account.*,
+          roles_id AS rolesId,
+          roles_name,
+          roles_code,
+          roles.create_time AS roles_create_time,
+          roles.update_time AS roles_update_time
+      FROM
+          account
+          LEFT JOIN account_roles ON account_roles.account_id = account.id
+          LEFT JOIN roles ON roles_id = account_roles.roles_id
+      WHERE
+          account.id = #{id}
+  </select>
+    <resultMap id="accountWithRolesMap" type="Account" extends="BaseResultMap">
+        <collection property="rolesList" ofType="Roles">
+            <id property="id" column="rolesId"/>
+            <result property="rolesCode" column="roles_code"/>
+            <result property="rolesName" column="roles_name"/>
+            <result property="createTime" column="roles_create_time"/>
+            <result property="updateTime" column="roles_update_time"/>
+        </collection>
+    </resultMap>
   <update id="updateByExampleSelective" parameterType="map">
     update account
     <set>

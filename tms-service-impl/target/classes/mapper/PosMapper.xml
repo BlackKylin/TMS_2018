@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyx.tms.mapper.PosMapper">
+  <resultMap id="BaseResultMap" type="com.wyx.tms.entity.Pos">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pos_name" jdbcType="VARCHAR" property="posName" />
+    <result column="pos_pic" jdbcType="VARCHAR" property="posPic" />
+    <result column="pos_license" jdbcType="VARCHAR" property="posLicense" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+    <result column="pos_site" jdbcType="VARCHAR" property="posSite" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="obsolete_time" jdbcType="TIMESTAMP" property="obsoleteTime" />
+    <result column="modification_time" jdbcType="TIMESTAMP" property="modificationTime" />
+    <result column="pos_number" jdbcType="VARCHAR" property="posNumber" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, pos_name, pos_pic, pos_license, owner_name, pos_site, longitude, latitude, obsolete_time, 
+    modification_time, pos_number
+  </sql>
+  <select id="selectByExample" parameterType="com.wyx.tms.entity.PosExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pos
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pos
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pos
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wyx.tms.entity.PosExample">
+    delete from pos
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wyx.tms.entity.Pos">
+    insert into pos (id, pos_name, pos_pic, 
+      pos_license, owner_name, pos_site, 
+      longitude, latitude, obsolete_time, 
+      modification_time, pos_number)
+    values (#{id,jdbcType=INTEGER}, #{posName,jdbcType=VARCHAR}, #{posPic,jdbcType=VARCHAR}, 
+      #{posLicense,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, #{posSite,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{obsoleteTime,jdbcType=TIMESTAMP}, 
+      #{modificationTime,jdbcType=TIMESTAMP}, #{posNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wyx.tms.entity.Pos">
+    insert into pos
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="posName != null">
+        pos_name,
+      </if>
+      <if test="posPic != null">
+        pos_pic,
+      </if>
+      <if test="posLicense != null">
+        pos_license,
+      </if>
+      <if test="ownerName != null">
+        owner_name,
+      </if>
+      <if test="posSite != null">
+        pos_site,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="obsoleteTime != null">
+        obsolete_time,
+      </if>
+      <if test="modificationTime != null">
+        modification_time,
+      </if>
+      <if test="posNumber != null">
+        pos_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="posName != null">
+        #{posName,jdbcType=VARCHAR},
+      </if>
+      <if test="posPic != null">
+        #{posPic,jdbcType=VARCHAR},
+      </if>
+      <if test="posLicense != null">
+        #{posLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null">
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="posSite != null">
+        #{posSite,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="obsoleteTime != null">
+        #{obsoleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modificationTime != null">
+        #{modificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="posNumber != null">
+        #{posNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wyx.tms.entity.PosExample" resultType="java.lang.Long">
+    select count(*) from pos
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pos
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.posName != null">
+        pos_name = #{record.posName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posPic != null">
+        pos_pic = #{record.posPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posLicense != null">
+        pos_license = #{record.posLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerName != null">
+        owner_name = #{record.ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posSite != null">
+        pos_site = #{record.posSite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.obsoleteTime != null">
+        obsolete_time = #{record.obsoleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modificationTime != null">
+        modification_time = #{record.modificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.posNumber != null">
+        pos_number = #{record.posNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pos
+    set id = #{record.id,jdbcType=INTEGER},
+      pos_name = #{record.posName,jdbcType=VARCHAR},
+      pos_pic = #{record.posPic,jdbcType=VARCHAR},
+      pos_license = #{record.posLicense,jdbcType=VARCHAR},
+      owner_name = #{record.ownerName,jdbcType=VARCHAR},
+      pos_site = #{record.posSite,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      obsolete_time = #{record.obsoleteTime,jdbcType=TIMESTAMP},
+      modification_time = #{record.modificationTime,jdbcType=TIMESTAMP},
+      pos_number = #{record.posNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wyx.tms.entity.Pos">
+    update pos
+    <set>
+      <if test="posName != null">
+        pos_name = #{posName,jdbcType=VARCHAR},
+      </if>
+      <if test="posPic != null">
+        pos_pic = #{posPic,jdbcType=VARCHAR},
+      </if>
+      <if test="posLicense != null">
+        pos_license = #{posLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="posSite != null">
+        pos_site = #{posSite,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="obsoleteTime != null">
+        obsolete_time = #{obsoleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modificationTime != null">
+        modification_time = #{modificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="posNumber != null">
+        pos_number = #{posNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wyx.tms.entity.Pos">
+    update pos
+    set pos_name = #{posName,jdbcType=VARCHAR},
+      pos_pic = #{posPic,jdbcType=VARCHAR},
+      pos_license = #{posLicense,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      pos_site = #{posSite,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      obsolete_time = #{obsoleteTime,jdbcType=TIMESTAMP},
+      modification_time = #{modificationTime,jdbcType=TIMESTAMP},
+      pos_number = #{posNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

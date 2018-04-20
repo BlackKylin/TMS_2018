@@ -22,17 +22,26 @@ public interface RolesService {
      * 查询全部角色
      * @return
      */
-    List<Roles> findByRolesAll();
+    List<Roles> findAllWithPermission();
 
     /**
-     * 查询全部权限
+     * 根据ID查找角色
+     * @param id
      * @return
      */
-    List<Permission> findByPermission();
+    Roles findByIdAndRoles(Integer id);
 
     /**
-     * 查询角色拥有的权限
+     * 修改角色
+     * @param roles
+     * @param permissionId
+     */
+    void updateRoles(Roles roles, Integer[] permissionId);
+
+    /**
+     * 查询所有角色
      * @return
      */
-    List<RolesPermissionKey> findByRolesPermission();
+    List<Roles> findRolesAll();
+
 }

@@ -33,11 +33,24 @@
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!--开启基于注解的shiro角色以及权限判断-->
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+   <!-- <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor"/>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+-->
+
+    <bean id="filterChainDefinition" class="com.wyx.tms.shiro.CustomerFilterChainDefinitions">
+        <property name="shiroFilter" ref="shiroFilter"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /favicon.ico = anon
+                /static/** = anon
+                /logout = logout
+            </value>
+        </property>
+    </bean>
+
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 
@@ -48,14 +61,7 @@
         <property name="successUrl" value="/home"/>
         <!--访问没有权限的资源跳转的URL-->
         <property name="unauthorizedUrl" value="/401"/>
-        <property name="filterChainDefinitions">
-            <value>
-                /favicon.ico = anon
-                /static/** = anon
-                /logout = logout
-                /** = user
-            </value>
-        </property>
+
     </bean>
 
 </beans>

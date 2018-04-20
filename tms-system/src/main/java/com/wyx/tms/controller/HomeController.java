@@ -35,13 +35,14 @@ public class HomeController {
 
         Subject subject = SecurityUtils.getSubject();
 
-        if(subject.isAuthenticated()){
+       if(subject.isAuthenticated()){
             subject.logout();
         }
 
-        if(subject.isRemembered()){
+
+     /*   if(subject.isRemembered()){
             return "redirect:/home";
-        }
+        }*/
 
         return "login";
     }
@@ -55,7 +56,6 @@ public class HomeController {
      */
     @PostMapping("/")
     public String login(String accountNumber, String accountPassword,
-                        String rememberMe,
                         HttpServletRequest request,
                         RedirectAttributes redirectAttributes){
 
@@ -65,7 +65,7 @@ public class HomeController {
         String requestId = request.getRemoteAddr();
         //根据账号和密码进行登录
         UsernamePasswordToken usernamePasswordToken =
-                new UsernamePasswordToken(accountNumber, DigestUtils.md5Hex(accountPassword),rememberMe != null,requestId);
+                new UsernamePasswordToken(accountNumber, DigestUtils.md5Hex(accountPassword),requestId);
 
         try{
             subject.login(usernamePasswordToken);

@@ -4,6 +4,10 @@ com\wyx\tms\mapper\RolesMapper.class
 com\wyx\tms\service\impl\RolesServiceImpl.class
 com\wyx\tms\mapper\AccountRolesMapper.class
 com\wyx\tms\service\impl\AccountServiceImpl.class
+com\wyx\tms\mapper\AccountPosMapper.class
 com\wyx\tms\mapper\AccountMapper.class
 com\wyx\tms\mapper\PermissionMapper.class
+com\wyx\tms\service\impl\PosServiceImpl.class
+com\wyx\tms\service\impl\AccountPosServiceImpl.class
+com\wyx\tms\mapper\PosMapper.class
 com\wyx\tms\mapper\AccountLoginLoggerMapper.class

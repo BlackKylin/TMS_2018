@@ -105,7 +105,7 @@
 
         $("#test1").gmap3({
             marker: {
-                latLng: [-7.782893, 110.402645],
+                latLng: [35.1760240309,113.2819800969],
                 options: {
                     draggable: true
                 },

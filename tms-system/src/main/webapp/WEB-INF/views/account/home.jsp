@@ -85,9 +85,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <td>${account.accountName}</td>
                                     <td>${account.accountNumber}</td>
                                     <td>
-                                        <%--<c:forEach items="${account.rolesList}" var="roles">
+                                        <c:forEach items="${account.rolesList}" var="roles">
                                             ${roles.rolesName}
-                                        </c:forEach>--%>
+                                        </c:forEach>
                                     </td>
                                     <td>
                                             ${account.accountState}

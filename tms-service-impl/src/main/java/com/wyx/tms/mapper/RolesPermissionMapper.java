@@ -1,5 +1,6 @@
 package com.wyx.tms.mapper;
 
+import com.wyx.tms.entity.Permission;
 import com.wyx.tms.entity.RolesPermissionExample;
 import com.wyx.tms.entity.RolesPermissionKey;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,5 @@ public interface RolesPermissionMapper {
     int updateByExampleSelective(@Param("record") RolesPermissionKey record, @Param("example") RolesPermissionExample example);
 
     int updateByExample(@Param("record") RolesPermissionKey record, @Param("example") RolesPermissionExample example);
+
 }

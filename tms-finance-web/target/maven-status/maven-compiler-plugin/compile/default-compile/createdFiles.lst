@@ -1,0 +1,4 @@
+com\wyx\tms\controller\HomeController.class
+com\wyx\tms\error\ControllerAdviceHandler.class
+com\wyx\tms\error\NotFandException.class
+com\wyx\tms\shiro\ShiroRealm.class

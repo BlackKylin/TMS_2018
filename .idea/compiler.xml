@@ -7,18 +7,22 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tms-commons" />
+        <module name="tms-finance-web" />
         <module name="tms-service" />
         <module name="tms-service-impl" />
         <module name="tms-system" />
+        <module name="tmsfinanceweb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="1.5" />
       <module name="parent" target="1.5" />
       <module name="tms-commons" target="1.5" />
+      <module name="tms-finance-web" target="1.8" />
       <module name="tms-service" target="1.5" />
       <module name="tms-service-impl" target="1.8" />
       <module name="tms-system" target="1.8" />
+      <module name="tmsfinanceweb" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

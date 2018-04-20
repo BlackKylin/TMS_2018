@@ -43,7 +43,6 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.selectByExample(accountExample);
     }
 
-
     /**
      * 添加账户
      * @param account
@@ -61,22 +60,14 @@ public class AccountServiceImpl implements AccountService {
         account.setCreateTime(new Date());
         account.setUpdateTime(new Date());
         accountMapper.insertSelective(account);
+        //添加对应关系
+        insertAccountByRoles(account,rolesIds);
 
-        //添加角色和账户的关系
-        for(Integer rolesId : rolesIds){
-
-            AccountRolesKey accountRolesKey = new AccountRolesKey();
-
-            accountRolesKey.setAccountId(account.getId());
-            accountRolesKey.setRolesId(rolesId);
-            accountRolesMapper.insert(accountRolesKey);
-
-        }
         logger.info("添加了{}账户",account);
     }
 
     /**
-     * 根据ID查找用户
+     * 根据ID查找用户及其拥有的角色
      *
      * @param id
      * @return
@@ -84,21 +75,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findByIdAndAccount(Integer id) {
 
-        Account account = accountMapper.selectByPrimaryKey(id);
-
-        return account;
-    }
-
-    /**
-     * 根据AccountId查找拥有的角色
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public List<Roles> findByAccountIdAndRoles(Integer id) {
-
-        return null;
+        return accountMapper.fandByIdAccount(id);
     }
 
     /**
@@ -131,5 +108,46 @@ public class AccountServiceImpl implements AccountService {
     public void saveAccountLogger(AccountLoginLogger accountLoginLogger) {
         accountLoginLoggerMapper.insertSelective(accountLoginLogger);
     }
+
+    /**
+     * 修改账户
+     *
+     * @param account
+     * @param rolesIds
+     */
+    @Override
+    @Transactional(value = "dataSourceTransactionManager")
+    public void updateAccount(Account account, Integer[] rolesIds) {
+
+        //查询关联关系表，删除其中的关联关系
+        AccountRolesExample accountRolesExample = new AccountRolesExample();
+        accountRolesExample.createCriteria().andAccountIdEqualTo(account.getId());
+
+        accountRolesMapper.deleteByExample(accountRolesExample);
+        //添加对应关系
+        insertAccountByRoles(account,rolesIds);
+
+        accountMapper.updateByPrimaryKeySelective(account);
+        logger.info("修改了{}账户",account);
+    }
+
+    @Override
+    public Account findAllWithRoles() {
+        return accountMapper.findAllWithRoles();
+    }
+
+    private void insertAccountByRoles(Account account, Integer[] rolesIds) {
+
+        //添加角色和账户的关系
+        for(Integer rolesId : rolesIds){
+
+            AccountRolesKey accountRolesKey = new AccountRolesKey();
+
+            accountRolesKey.setAccountId(account.getId());
+            accountRolesKey.setRolesId(rolesId);
+            accountRolesMapper.insert(accountRolesKey);
+        }
+    }
+
 
 }

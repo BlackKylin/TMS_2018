@@ -2,6 +2,7 @@ package com.wyx.tms.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
@@ -34,7 +35,7 @@ public class Roles implements Serializable {
     /**
      * 角色拥有的权限
      */
-    private Integer[] permissionsId;
+    private List<Permission> permissionsList;
 
     private static final long serialVersionUID = 1L;
 
@@ -78,12 +79,12 @@ public class Roles implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer[] getPermissionsId() {
-        return permissionsId;
+    public List<Permission> getPermissionsList() {
+        return permissionsList;
     }
 
-    public void setPermissionsId(Integer[] permissionsId) {
-        this.permissionsId = permissionsId;
+    public void setPermissionsList(List<Permission> permissionsList) {
+        this.permissionsList = permissionsList;
     }
 
     @Override

@@ -27,4 +27,9 @@ public interface RolesMapper {
     int updateByPrimaryKeySelective(Roles record);
 
     int updateByPrimaryKey(Roles record);
+
+
+    List<Roles> findAllWithPermission();
+
+    Roles findByIdWithPermission(Integer id);
 }

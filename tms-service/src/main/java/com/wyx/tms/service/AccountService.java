@@ -28,18 +28,11 @@ public interface AccountService {
 
 
     /**
-     * 根据ID查找用户
+     * 根据ID查找用户及拥有的角色
      * @param id
      * @return
      */
     Account findByIdAndAccount(Integer id);
-
-    /**
-     * 根据AccountId查找拥有的角色
-     * @param id
-     * @return
-     */
-    List<Roles> findByAccountIdAndRoles(Integer id);
 
     /**
      * 根据电话号码查询用户
@@ -53,4 +46,15 @@ public interface AccountService {
      * @param accountLoginLogger
      */
     void saveAccountLogger(AccountLoginLogger accountLoginLogger);
+
+    /**
+     * 修改账户
+     * @param account
+     * @param rolesIds
+     */
+    void updateAccount(Account account, Integer[] rolesIds);
+
+
+    Account findAllWithRoles();
+
 }

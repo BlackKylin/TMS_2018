@@ -95,7 +95,7 @@
     insert into account_roles (account_id, roles_id)
     values (#{accountId,jdbcType=INTEGER}, #{rolesId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.wyx.tms.entity.AccountRolesKey">
+  <insert id="insertSelective" parameterType="com.wyx.tms.entity.AccountRolesKey"  useGeneratedKeys="true" keyProperty="id">
     insert into account_roles
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="accountId != null">

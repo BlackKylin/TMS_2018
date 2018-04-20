@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!--  左侧边栏 -->
 <!-- Left side column. contains the logo and sidebar -->
@@ -22,25 +23,50 @@
         <!-- 菜单 -->
         <ul class="sidebar-menu">
             <li class="${param.active == "home" ? 'active':''}"><a href="/home"><i class="fa fa-home"></i> <span>首页</span></a></li>
-            <!-- 权限管理 -->
-            <li class="${param.active == "permission" ? 'active':''}">
 
-                <a href="/manage/permission/">
-                    <i class="fa fa-circle-o"></i> <span>权限管理</span>
-                    <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-            </li>
-            <!-- 角色管理 -->
-            <li class="treeview ${param.active == "role" ? 'active':''}">
-                <a href="/manage/roles/">
-                    <i class="fa fa-circle-o"></i> <span>角色管理</span>
-                    <span class="pull-right-container">
+
+
+            <%--<shiro:hasPermission name="system:root">--%>
+
+                <li class="header">综合管理</li>
+                <li class="${param.active == "pos" ? 'active':''}">
+                    <a href="/manage/pos/home">
+                        <i class="fa fa-circle-o"></i> <span>销售点管理</span>
+                        <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-            </li>
+                        </span>
+                    </a>
+                </li>
+
+            <%--</shiro:hasPermission>--%>
+
+            <li class="header">后台管理</li>
+            <!-- 权限管理 -->
+            <%--<shiro:hasPermission name="permission:root">--%>
+                <li class="${param.active == "permission" ? 'active':''}">
+
+                    <a href="/manage/permission/">
+                        <i class="fa fa-circle-o"></i> <span>权限管理</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+            <%--</shiro:hasPermission>--%>
+
+
+            <!-- 角色管理 -->
+            <%--<shiro:hasPermission name="roles:root">--%>
+                <li class="treeview ${param.active == "role" ? 'active':''}">
+                    <a href="/manage/roles/">
+                        <i class="fa fa-circle-o"></i> <span>角色管理</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+           <%-- </shiro:hasPermission>--%>
+
             <!-- 账户管理 -->
             <li class="treeview  ${param.active == "account" ? 'active':''}">
                 <a href="/account/home/">

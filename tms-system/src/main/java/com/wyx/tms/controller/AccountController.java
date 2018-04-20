@@ -1,6 +1,7 @@
 package com.wyx.tms.controller;
 
 
+import com.google.common.collect.Maps;
 import com.wyx.tms.entity.Account;
 import com.wyx.tms.entity.Roles;
 import com.wyx.tms.service.AccountService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 账号管理的控制器
@@ -37,7 +39,7 @@ public class AccountController {
     @GetMapping("/account/home")
     public String home(Model model){
 
-
+/*
         List<Account> accountList = accountService.selectByAccountAll();
 
         if(accountList != null && !accountList.isEmpty()){
@@ -45,11 +47,22 @@ public class AccountController {
         }
 
         //查询所有的角色
-        List<Roles> rolesList = rolesService.findByRolesAll();
-
-
-        model.addAttribute("rolesList",rolesList);
+        List<Roles> rolesList = rolesService.findAllWithPermission();
+         model.addAttribute("rolesList",rolesList);
         model.addAttribute("accountList",accountList);
+*/
+
+        List<Account> accountList = accountService.selectByAccountAll();
+
+        if(accountList != null && !accountList.isEmpty()){
+            model.addAttribute("accountList",accountList);
+        }
+
+        Account account = accountService.findAllWithRoles();
+
+        model.addAttribute("account",account);
+
+
 
         return "account/home";
     }
@@ -62,7 +75,7 @@ public class AccountController {
     @GetMapping("/account/add")
     public String add(Model model){
 
-        List<Roles> rolesList = rolesService.findByRolesAll();
+        List<Roles> rolesList = rolesService.findAllWithPermission();
 
         model.addAttribute("rolesList",rolesList);
         return "account/add";
@@ -96,18 +109,44 @@ public class AccountController {
 
         Account account = accountService.findByIdAndAccount(id);
 
-        /*List<Roles> rolesList = rolesService.findByRolesAll();*/
+        //查询所有角色
+        List<Roles> rolesList = rolesService.findRolesAll();
 
-        List<Roles> rolesList = accountService.findByAccountIdAndRoles(id);
+        Map<Roles,Boolean> rolesBooleanMap = findByRolesAndAccount(rolesList,account.getRolesList());
 
-        model.addAttribute("rolesList",rolesList);
+        model.addAttribute("rolesBooleanMap",rolesBooleanMap);
         model.addAttribute("account",account);
 
         return "account/update";
     }
 
+    @PostMapping("/account/{id:\\d+}/update")
+    public String update(Account account,Integer[] rolesIds,RedirectAttributes redirectAttributes){
+        accountService.updateAccount(account,rolesIds);
+
+        redirectAttributes.addFlashAttribute("message","修改成功");
+        return "redirect:/account/home";
+    }
 
 
+    private Map<Roles, Boolean> findByRolesAndAccount(List<Roles> rolesList, List<Roles> rolesList1) {
 
+        Map<Roles,Boolean> rolesBooleanMap = Maps.newHashMap();
+
+        for(Roles roles : rolesList){
+
+            Boolean flag = false;
+
+            for(Roles rolesAccount : rolesList1){
+
+                if(rolesAccount.getId().equals(roles.getId())){
+                    flag = true;
+                    break;
+                }
+            }
+            rolesBooleanMap.put(roles,flag);
+        }
+        return rolesBooleanMap;
+    }
 
 }
